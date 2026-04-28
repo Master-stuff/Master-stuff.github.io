@@ -1,0 +1,47 @@
+nav {
+    display: flex;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    padding: 15px;
+    border-radius: 50px;
+    background: hsla(var(--second-hue), 100%, 11%, .8);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 24px #0008;
+    z-index: 1;
+}
+
+nav ul {
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: space-around;
+    list-style: none;
+}
+
+nav ul i {
+    position: absolute;
+    left: 16px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50px;
+    background: linear-gradient(-45deg, var(--first-color-alt), var(--first-color));
+    box-shadow: 0 0 8px hsla(var(--first-hue), var(--first-sat), var(--first-lig), .8);
+    z-index: -1;
+    transition: .3s ease;
+}
+
+nav ul li {
+    display: flex;
+    padding: 10px;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+nav ul li svg {
+    fill: var(--first-txt-color);
+}

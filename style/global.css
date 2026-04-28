@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --first-hue: 180;
+    --first-sat: 96%;
+    --first-lig: 61%;
+
+    --second-hue: 206;
+    --second-sat: 100%;
+    --second-lig: 6%;
+
+    --first-color: hsl(var(--first-hue), var(--first-sat), var(--first-lig));
+    --first-color-alt: hsl(var(--first-hue), 96%, 70%);
+    --first-color-alt-2: hsl(var(--first-hue), 56%, 48%);
+
+    --second-color: hsl(var(--second-hue), var(--second-sat), var(--second-lig));
+    --second-color-alt: hsl(var(--second-hue), 100%, 11%);
+
+    --first-txt-color: #fff;
+    --second-txt-color: #bbb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Poppins';
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--second-color);
+}

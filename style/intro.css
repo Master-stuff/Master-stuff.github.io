@@ -1,0 +1,188 @@
+section.intro {
+    display: flex;
+    width: 100%;
+    padding: 110px 0 50px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+section.intro div.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+section.intro div.profile div.text {
+    text-align: center;
+    color: var(--first-txt-color);
+}
+
+section.intro div.profile div.text span.hi {
+    display: block;
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+section.intro div.profile div.text h1 {
+    font-size: 34px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--first-color);
+}
+
+section.intro div.profile div.text span.job {
+    display: block;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 200;
+    color: var(--second-txt-color);
+}
+
+section.intro div.profile div.links {
+    display: flex;
+    gap: 10px;
+}
+
+section.intro div.profile div.links a {
+    display: flex;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: .5s ease;
+}
+
+section.intro div.profile div.links a.cv {
+    border: solid 1px var(--first-color);
+    color: var(--first-color);
+}
+
+section.intro div.profile div.links a.cv:hover {
+    background: var(--first-color);
+    color: var(--second-color);
+}
+
+section.intro div.profile div.links a.contact {
+    background: var(--first-color);
+    color: var(--second-color);
+    cursor: pointer;
+}
+
+section.intro div.profile div.links a.contact:hover {
+    background: var(--first-color-alt);
+}
+
+section.intro div.profile div.photo {
+    display: flex;
+    width: 300px;
+    height: 420px;
+    margin-top: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 160px 160px 10px 10px;
+    border: solid 1px var(--first-color);
+}
+
+section.intro div.profile div.photo div.img {
+    width: 280px;
+    height: 400px;
+    border-radius: 160px 160px 10px 10px;
+    background: linear-gradient(var(--first-color-alt), var(--first-color-alt-2));
+    overflow: hidden;
+}
+
+section.intro div.profile div.photo div.img img {
+    position: relative;
+    top: -60px;
+    left: -50px;
+    width: 130%;
+}
+
+section.intro div.social {
+    display: flex;
+    position: absolute;
+    bottom: -25px;
+    left: calc((100vw - 280px) / 12 * 2);
+    transform: translateX(-50%);
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+section.intro div.social a.item {
+    display: flex;
+    text-decoration: none;
+    transition: .3s ease;
+}
+
+section.intro div.social a.item:hover {
+    transform: scale(1.2);
+}
+
+section.intro div.social a.item svg {
+    fill: var(--first-color);
+}
+
+section.intro div.social i, section.intro div.scrollDown i {
+    width: 1px;
+    height: 50px;
+    background: var(--first-color);
+}
+
+section.intro div.scrollDown {
+    display: flex;
+    width: 94px;
+    position: absolute;
+    bottom: -25px;
+    right: calc((100vw - 280px) / 12 * 2);
+    transform: translateX(50%);
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+section.intro div.scrollDown div {
+    display: flex;
+    align-items: center;
+    transform: rotate(90deg);
+    height: 95px;
+}
+
+section.intro div.scrollDown div span {
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.2px;
+    color: var(--first-color);
+    cursor: pointer;
+}
+
+section.intro div.scrollDown div span:hover {
+    animation: goScroll .6s ease;
+}
+
+@media screen and (max-width: 580px) {
+    
+    section.intro div.social {
+        display: none;
+    }
+
+    section.intro div.scrollDown {
+        display: none;
+    }
+
+}
+
+@keyframes goScroll {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

@@ -1,0 +1,20 @@
+::-webkit-scrollbar {
+    width: 0;
+}
+
+#scrollPath {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 100%;
+}
+
+#progressBar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 3px;
+    background: var(--first-color);
+    box-shadow: 0 0 8px var(--first-color);
+}

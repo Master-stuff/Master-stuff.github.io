@@ -1,0 +1,135 @@
+section.projects {
+    display: flex;
+    width: calc(100% - 140px);
+    padding: 70px 70px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+section.projects div.filter {
+    display: flex;
+    position: relative;
+    height: 24px;
+    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+section.projects div.filter i {
+    position: absolute;
+    left: 0;
+    height: 24px;
+    border-radius: 5px;
+    background: var(--first-color);
+    z-index: -1;
+    transition: .3s ease;
+}
+
+section.projects div.filter span.item {
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    cursor: pointer;
+    color: var(--first-txt-color);
+    transition: .3s ease;
+}
+
+section.projects div.filter span.item.active {
+    color: var(--second-color);
+}
+
+section.projects div.content {
+    display: flex;
+    max-width: 790px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+section.projects div.content div.project {
+    display: flex;
+    position: relative;
+    width: 250px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px #0008;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+section.projects div.content div.project div.box {
+    display: flex;
+    width: 100%;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+section.projects div.content div.project div.box img {
+    width: 100%;
+    transition: .5s ease;
+}
+
+section.projects div.content div.project:hover div.box img {
+    transform: scale(1.05);
+}
+
+section.projects div.content div.project div.text {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    padding: 20px;
+    border-radius: 10px;
+    background: linear-gradient(hsla(var(--first-hue), var(--first-sat), var(--first-lig), .2), #0008);
+    backdrop-filter: blur(2px);
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: .3s ease;
+}
+
+section.projects div.content div.project:hover div.text {
+    top: 0;
+}
+
+section.projects div.content div.project div.text span.title {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    color: var(--first-txt-color);
+}
+
+section.projects div.content div.project div.text span.sub {
+    font-size: 14px;
+    font-weight: 200;
+    color: var(--first-txt-color);
+}
+
+section.projects div.content div.project div.text a {
+    display: flex;
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 5px;
+    background: var(--first-color);
+    box-shadow: 0 0 12px hsla(var(--first-hue), var(--first-sat), var(--first-lig), .4);
+    transition: .5s ease;
+}
+
+section.projects div.content div.project div.text a:hover {
+    background: var(--first-color-alt);
+}
+
+section.projects div.content div.project div.text a svg {
+    fill: var(--second-color);
+}

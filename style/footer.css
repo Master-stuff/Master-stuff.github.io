@@ -1,0 +1,107 @@
+footer {
+    display: flex;
+    width: calc(100% - 140px);
+    padding: 70px 70px 110px 70px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    background: var(--first-color);
+}
+
+footer div.sign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer div.sign h1 {
+    font-size: 32px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--second-color);
+}
+
+footer div.sign span.sub {
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--second-color);
+}
+
+footer div.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+footer div.links ul.links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 30px;
+    list-style: none;
+}
+
+footer div.links ul.links li {
+    position: relative;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .8px;
+    color: var(--second-color);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+footer div.links ul.links li::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: -100%;
+    height: 1px;
+    background: var(--second-color);
+    transition: .3s ease;
+}
+
+footer div.links ul.links li:hover::before {
+    left: 100%;
+}
+
+footer div.links div.social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+footer div.links div.social a {
+    display: flex;
+    width: 18px;
+    height: 18px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+footer div.links div.social a:hover {
+    transform: scale(1.1);
+}
+
+footer div.links div.social a svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--second-color);
+}
+
+footer div.pioneers {
+    padding-top: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--second-color);
+}
