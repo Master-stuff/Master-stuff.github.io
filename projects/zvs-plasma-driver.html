@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZVS High-Voltage Flyback Plasma Driver — Abdallah Bouaicha</title>
+  <meta name="description" content="Mazzilli ZVS resonant high-voltage driver for a BSC25-F1118N CRT flyback transformer with ESP32-C3 telemetry and fault protection.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });"></script>
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/article.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="/index.html" class="site-brand">
+        <span class="site-brand__name">Abdallah Bouaicha</span>
+        <span class="site-brand__tag mono">/ PORTFOLIO</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/index.html#casebook">Casebook</a>
+        <a href="/about.html">About</a>
+        <a href="/assets/cv.pdf">CV (PDF)</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="demo-notice" role="note">
+    <div class="container demo-notice__inner">
+      <span class="demo-notice__tag mono">DEMO PHASE</span>
+      <p class="demo-notice__text">This website is still in a demo phase. All projects and case studies shown here are placeholder entries for website testing purposes and are not real.</p>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/index.html#casebook">&larr; Back to casebook</a>
+    </div>
+
+    <header class="case-header">
+      <span class="eyebrow">PROJECT / 02</span>
+      <h1 class="case-header__title">ZVS High-Voltage Flyback Plasma Driver</h1>
+      <p class="case-header__lead">
+        High-efficiency Zero-Voltage Switching (ZVS) resonant power stage driving a salvaged CRT flyback transformer, supervised by an ESP32-C3 resistive telemetry and fault-protection controller.
+      </p>
+    </header>
+
+    <section class="case-specs" aria-label="Project specifications">
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">ROLE</span>
+        <span class="case-specs__value">Power Electronics &amp; Embedded Control</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">TIMELINE</span>
+        <span class="case-specs__value">Feb 2026 – Apr 2026</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">TOOLS &amp; STACK</span>
+        <span class="case-specs__value">KiCad, LTSpice, ESP32-C3 (C/IDF), Oscilloscope, BSC25-F1118N</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">REPOSITORY / CAD</span>
+        <span class="case-specs__value"><a href="https://github.com/Master-stuff" target="_blank" rel="noopener noreferrer">github.com/Master-stuff/zvs-flyback-esp32</a></span>
+      </div>
+    </section>
+
+    <figure class="media-frame media-frame--diagram media-breakout">
+      <figcaption class="figure-label mono">FIG 02 / SCHEMATIC TOPOLOGY — Mazzilli ZVS Driver &amp; ESP32-C3 Telemetry</figcaption>
+      <img src="/assets/diagrams/zvs-flyback.svg" alt="Complete power-and-control path from the 12 V DC choke rail through cross-coupled IRFP250N MOSFETs and BSC25-F1118N flyback transformer to ESP32-C3 ADC sensing." data-caption="FIG 02 / SCHEMATIC TOPOLOGY — 12 V DC choke rail, IRFP250N resonant tank, BSC25-F1118N core, and ESP32-C3 ADC sensing.">
+    </figure>
+
+    <article class="report-body">
+      <section class="report-section">
+        <span class="report-section__kicker mono">01 / PROBLEM &amp; CONSTRAINTS</span>
+        <h2>Soft-Switching High-Voltage Generation with Embedded Safety</h2>
+        <p>
+          Hard-switched single-MOSFET flyback drivers dissipate excessive switching losses ($P_{\text{sw}} \propto V_{DS} I_D f_{\text{sw}}$) when pushing $&gt;100\text{ W}$ into a continuous plasma arc, frequently causing thermal runaway in TO-247 MOSFETs. Conversely, bare self-oscillating Mazzilli ZVS circuits lack telemetry, soft-start limiting, or automated thermal cutoff when running unattended on bench supplies.
+        </p>
+        <p>Design targets for the hybrid power-and-telemetry prototype:</p>
+        <ul>
+          <li><strong>Input Envelope:</strong> $12\text{ V DC}$ nominal bench supply up to $15\text{ A}$ continuous ($180\text{ W}$ peak input).</li>
+          <li><strong>Zero-Voltage Switching:</strong> Maintain resonant tank oscillation between $40\text{ kHz}$ and $65\text{ kHz}$ so MOSFET transitions occur strictly at $V_{DS} \approx 0\text{ V}$.</li>
+          <li><strong>Output Generation:</strong> Sustain a $15\text{–}25\text{ kV}$ rectified/pulsed arc across an $18\text{ mm}$ Jacob's ladder or plasma electrode gap using a salvaged <code>BSC25-F1118N</code> CRT flyback core.</li>
+          <li><strong>Embedded Supervision:</strong> Monitor bus rail droop and heatsink temperature via an <code>ESP32-C3</code> microcontroller, keeping all ADC inputs strictly inside $[0, 3.3\text{ V}]$ with optical/resistive isolation from the high-voltage secondary return.</li>
+        </ul>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">02 / MODELING &amp; ANALYSIS</span>
+        <h2>Resonant Tank Frequency, Peak Stress &amp; ADC Telemetry Scaling</h2>
+        <p>
+          In a balanced center-tapped Mazzilli topology, the tank capacitor $C_r$ resonates with the total primary inductance $L_p$ across the full $5+5$ turn winding. The natural oscillation frequency $f_0$ and peak half-cycle drain voltage $V_{DS,\text{pk}}$ follow:
+        </p>
+        <div class="math-block">
+          $$f_0 = \frac{1}{2\pi\sqrt{L_p C_r}}, \qquad V_{DS,\text{pk}} \approx \pi\, V_{\text{in}}$$
+        </div>
+        <p>
+          With a measured primary winding inductance $L_p \approx 16.2\ \mu\text{H}$ (coupled across the gapped ferrite core) and polypropylene film bank $C_r = 0.68\ \mu\text{F}$:
+        </p>
+        <div class="math-block">
+          $$f_0 = \frac{1}{2\pi\sqrt{16.2\times 10^{-6} \cdot 0.68\times 10^{-6}}} \approx 47.95\text{ kHz}$$
+        </div>
+        <p>
+          At $V_{\text{in}} = 12\text{ V}$, the theoretical peak drain-source stress is $V_{DS,\text{pk}} \approx 37.7\text{ V}$ (rising to $\sim 75\text{ V}$ at $24\text{ V}$ supply), leaving more than a $2.5\times$ voltage margin on $200\text{ V}$-rated <code>IRFP250N</code> MOSFETs ($R_{DS(\text{on})} = 75\text{ m}\Omega$).
+        </p>
+        <p>
+          To feed the <code>ESP32-C3</code> ADC (maximum $V_{\text{ADC,fs}} = 2.5\text{ V}$ linear range under <code>ADC_ATTEN_DB_11</code>), the bus sense divider uses $R_1 = 47\text{ k}\Omega$ and $R_2 = 9.4\text{ k}\Omega$:
+        </p>
+        <div class="math-block">
+          $$V_{\text{ADC}} = V_{\text{bus}} \frac{R_2}{R_1 + R_2} = V_{\text{bus}} \frac{9.4}{56.4} = \frac{V_{\text{bus}}}{6.0}$$
+        </div>
+        <p>
+          At $V_{\text{bus}} = 12.0\text{ V}$, the ADC sees $2.00\text{ V}$, providing clean headroom up to $19.8\text{ V}$ surge transients without clipping the $3.3\text{ V}$ GPIO clamp diodes.
+        </p>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">03 / DESIGN &amp; PROTOTYPING ITERATIONS</span>
+        <h2>Hardware Debugging &amp; EMI Isolation</h2>
+        <p>Three hardware revisions resolved gate oscillation instability, inductor saturation, and EMI coupling into the <code>ESP32-C3</code>:</p>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Subsystem</th>
+                <th>Iteration Issue</th>
+                <th>Fix Implemented</th>
+                <th>Measured Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Feed Choke $L_c$</td>
+                <td>Small powdered-iron toroid saturated above 7 A, collapsing ZVS</td>
+                <td>Replaced with $100\ \mu\text{H}$ gapped sendust core wound with 1.5 mm enameled copper</td>
+                <td>Linear inductance held up to 16 A without thermal drift</td>
+              </tr>
+              <tr>
+                <td>Gate Drive Clamp</td>
+                <td>Gate-source ringing spiked above 20 V during arc strike</td>
+                <td>Added 12 V 1.3 W Zener clamps + 470 &Omega; pull-downs and UF4007 fast-recovery diodes</td>
+                <td>Clean square-edge gate transitions at 48 kHz; zero MOSFET failures</td>
+              </tr>
+              <tr>
+                <td>MCU Grounding</td>
+                <td>HV arc EMI reset the ESP32-C3 over shared ground bounce</td>
+                <td>Star-grounded logic return at bulk input capacitor + 100 nF ceramic decoupling on ADC pin</td>
+                <td>Continuous 10-minute telemetry logging during open-air arcing</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">04 / VALIDATION &amp; RESULTS</span>
+        <h2>Bench Oscilloscope &amp; Thermal Verification</h2>
+        <ul>
+          <li><strong>Resonant Operation:</strong> Probing MOSFET drain waveforms confirmed clean half-sine $V_{DS}$ pulses peaking at $38.4\text{ V}$ at $47.6\text{ kHz}$ under $12.2\text{ V}$ input, matching the analytical prediction within $0.8\%$.</li>
+          <li><strong>Thermal Efficiency:</strong> Under a sustained $115\text{ W}$ plasma arc load ($12.0\text{ V}, 9.6\text{ A}$), extruded aluminum heatsink temperatures stabilized at $46^\circ\text{C}$ after 8 minutes—confirming low ZVS switching losses.</li>
+          <li><strong>Fault Cutoff:</strong> Triggering an intentional $10.5\text{ V}$ bus sag or $&gt;65^\circ\text{C}$ NTC threshold caused the <code>ESP32-C3</code> supervisor to pull down the low-side enable relay within $4\text{ ms}$.</li>
+        </ul>
+      </section>
+
+      <nav class="case-pagination" aria-label="Case study pagination">
+        <a href="/projects/newtonian-telescope.html" class="case-pagination__link">
+          <span class="case-pagination__dir mono">&larr; PREVIOUS PROJECT</span>
+          <span class="case-pagination__title">01 / 114/900 Newtonian Optical Telescope Assembly</span>
+        </a>
+        <a href="/projects/double-pendulum-lqr.html" class="case-pagination__link case-pagination__link--next">
+          <span class="case-pagination__dir mono">NEXT PROJECT &rarr;</span>
+          <span class="case-pagination__title">03 / Inverted Double Pendulum on a Cart (LQR)</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <footer id="contact" class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="footer-contact">
+        <span class="eyebrow">DIRECT CONTACT</span>
+        <div class="footer-email-row">
+          <a href="mailto:abuubaydah07@gmail.com" class="footer-email">abuubaydah07@gmail.com</a>
+          <button type="button" class="copy-email-btn mono" data-email="abuubaydah07@gmail.com">[Copy]</button>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/Master-stuff" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/abdallah-bouaicha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-location mono">Rabat-Témara, Morocco</span>
+        <a href="#top">Back to top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-caption">
+    <div class="lightbox__inner">
+      <div class="lightbox__bar">
+        <span id="lightbox-caption" class="lightbox__caption mono"></span>
+        <button type="button" id="lightbox-close" class="lightbox__close mono">Close [ESC]</button>
+      </div>
+      <img id="lightbox-img" class="lightbox__img" src="" alt="">
+    </div>
+  </dialog>
+
+  <script src="/scripts/main.js"></script>
+</body>
+</html>

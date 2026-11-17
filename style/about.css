@@ -1,126 +1,163 @@
-section.about {
-    display: flex;
-    width: calc(100% - 140px);
-    padding: 70px 70px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* Page Header */
+.about-header {
+  padding: 64px 0 40px;
+  border-bottom: 1.5px solid var(--rule-heavy);
 }
 
-section.about div.content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 90px;
+.about-header__title {
+  margin-top: 14px;
+  max-width: 22ch;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
-section.about div.content div.photo {
-    display: flex;
-    width: 265px;
-    height: 265px;
-    margin: 0 15px;
-    border-radius: 10px;
-    border: solid 1px var(--first-color);
-    justify-content: center;
-    align-items: center;
+/* Two-Column Editorial Bio & Metadata Sidebar */
+.about-grid {
+  padding: 48px 0 64px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 56px;
+  align-items: start;
 }
 
-section.about div.content div.photo div.img {
-    width: 250px;
-    height: 250px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: linear-gradient(-45deg, var(--first-color-alt-2), var(--first-color-alt), var(--first-color-alt-2));
+.about-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-section.about div.content div.photo div.img img {
-    width: 250px;
-    height: 250px;
-    border-radius: 10px;
-    transform: rotate(-10deg);
+.about-narrative h2 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-top: 12px;
 }
 
-section.about div.content div.info {
-    display: flex;
-    width: min(570px, 100%);
-    flex-direction: column;
-    gap: 30px;
+.about-narrative p {
+  color: var(--ink-secondary);
 }
 
-section.about div.content div.info div.data {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+.meta-sidebar {
+  background: var(--bg-plate);
+  border: 1px solid var(--rule-light);
+  border-radius: 2px;
+  padding: 24px;
 }
 
-section.about div.content div.info div.data div.box {
-    display: flex;
-    width: 180px;
-    height: 130px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    box-shadow: 0 0 8px #0008;
-    background: var(--second-color-alt);
+.meta-list {
+  display: flex;
+  flex-direction: column;
 }
 
-section.about div.content div.info div.data div.box i {
-    display: flex;
-    margin-bottom: 12px;
+.meta-list__row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-light);
 }
 
-section.about div.content div.info div.data div.box i svg {
-    fill: var(--first-color);
+.meta-list__row:first-child {
+  padding-top: 0;
 }
 
-section.about div.content div.info div.data div.box h3 {
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    color: var(--first-txt-color);
+.meta-list__label {
+  display: block;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
 }
 
-section.about div.content div.info div.data div.box span {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 200;
-    letter-spacing: 1px;
-    color: var(--second-txt-color);
+.meta-list__value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-primary);
 }
 
-section.about div.content div.info p {
-    font-size: 16px;
-    font-weight: 200;
-    letter-spacing: .8px;
-    color: var(--first-txt-color);
+.btn-rect {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 11px 16px;
+  background: var(--ink-primary);
+  color: var(--bg-plate);
+  border: 1px solid var(--ink-primary);
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-@media screen and (max-width: 1095px) {
-    
-    section.about div.content {
-        flex-direction: column;
-    }
+.btn-rect:hover {
+  background: var(--accent-sage);
+  border-color: var(--accent-sage);
+}
 
-    section.about div.content div.photo {
-        width: min(330px, calc(100vw - 140px));
-        height: min(330px, calc(100vw - 140px));
-    }
+/* Capabilities & Tooling 2x2 Matrix */
+.capabilities-section {
+  padding-top: 40px;
+  border-top: 1.5px solid var(--rule-heavy);
+}
 
-    section.about div.content div.photo div.img {
-        width: calc(100% - 15px);
-        height: calc(100% - 15px);
-    }
-    
-    section.about div.content div.photo div.img img {
-        width: 100%;
-        height: 100%;
-    }
+.capabilities-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 28px;
+  gap: 16px;
+}
 
-    section.about div.content div.info p {
-        text-align: center;
-    }
+.capabilities-section__header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
 
+.capabilities-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--rule-light);
+  border-left: 1px solid var(--rule-light);
+}
+
+.capability-cell {
+  padding: 28px;
+  border-right: 1px solid var(--rule-light);
+  border-bottom: 1px solid var(--rule-light);
+  background: var(--bg-plate);
+}
+
+.capability-cell__index {
+  display: block;
+  color: var(--accent-sage);
+  margin-bottom: 8px;
+}
+
+.capability-cell h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.capability-cell p {
+  font-size: 14px;
+  color: var(--ink-secondary);
+  margin-bottom: 14px;
+}
+
+.capability-cell__tools {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 860px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .capabilities-matrix {
+    grid-template-columns: 1fr;
+  }
 }

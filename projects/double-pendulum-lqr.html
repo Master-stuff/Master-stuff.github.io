@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inverted Double Pendulum on a Cart (LQR) — Abdallah Bouaicha</title>
+  <meta name="description" content="Euler-Lagrange derivation, Jacobian linearization, and LQR state-feedback stabilization of a 6-DOF inverted double pendulum on a motorized cart.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });"></script>
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/article.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="/index.html" class="site-brand">
+        <span class="site-brand__name">Abdallah Bouaicha</span>
+        <span class="site-brand__tag mono">/ PORTFOLIO</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/index.html#casebook">Casebook</a>
+        <a href="/about.html">About</a>
+        <a href="/assets/cv.pdf">CV (PDF)</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="demo-notice" role="note">
+    <div class="container demo-notice__inner">
+      <span class="demo-notice__tag mono">DEMO PHASE</span>
+      <p class="demo-notice__text">This website is still in a demo phase. All projects and case studies shown here are placeholder entries for website testing purposes and are not real.</p>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/index.html#casebook">&larr; Back to casebook</a>
+    </div>
+
+    <header class="case-header">
+      <span class="eyebrow">PROJECT / 03</span>
+      <h1 class="case-header__title">Inverted Double Pendulum on a Cart (LQR)</h1>
+      <p class="case-header__lead">
+        Full nonlinear Euler-Lagrange modeling, symbolic Jacobian linearization, and Linear Quadratic Regulator (LQR) state-feedback stabilization of a 6-DOF cart-double-pendulum system.
+      </p>
+    </header>
+
+    <section class="case-specs" aria-label="Project specifications">
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">ROLE</span>
+        <span class="case-specs__value">Dynamic Modeling &amp; Control Synthesis</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">TIMELINE</span>
+        <span class="case-specs__value">May 2026 – Present</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">TOOLS &amp; STACK</span>
+        <span class="case-specs__value">Python 3.12, SymPy, NumPy / SciPy, Matplotlib</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">REPOSITORY / CAD</span>
+        <span class="case-specs__value"><a href="https://github.com/Master-stuff" target="_blank" rel="noopener noreferrer">github.com/Master-stuff/double-pendulum-lqr</a></span>
+      </div>
+    </section>
+
+    <figure class="media-frame media-frame--diagram media-breakout">
+      <figcaption class="figure-label mono">FIG 03 / DYNAMICS &amp; CONTROL — Free-Body Diagram &amp; LQR State-Feedback Architecture</figcaption>
+      <img src="/assets/diagrams/pendulum-lqr.svg" alt="Generalized coordinates q = [x, theta_1, theta_2]^T under horizontal actuator force F = u(t), coupled into a continuous-time LQR regulator." data-caption="FIG 03 / DYNAMICS &amp; CONTROL — Generalized coordinates (x, θ₁, θ₂), actuator force F = u(t), and LQR regulator.">
+    </figure>
+
+    <article class="report-body">
+      <section class="report-section">
+        <span class="report-section__kicker mono">01 / PROBLEM &amp; CONSTRAINTS</span>
+        <h2>Stabilizing Three Coupled Degrees of Freedom with One Actuator</h2>
+        <p>
+          An inverted double pendulum mounted on a horizontal cart is a classic benchmark for underactuated nonlinear control: three mechanical degrees of freedom ($x, \theta_1, \theta_2$) must be stabilized simultaneously using a single horizontal cart force $u(t)$. Because the open-loop upright equilibrium is exponentially unstable with two fast right-half-plane poles, PID loops fail to balance both links simultaneously.
+        </p>
+        <p>Simulation and controller design constraints:</p>
+        <ul>
+          <li><strong>Physical Parameters:</strong> Cart mass $M = 1.2\text{ kg}$, link masses $m_1 = 0.35\text{ kg}$, $m_2 = 0.25\text{ kg}$, link lengths $\ell_1 = 0.45\text{ m}$, $\ell_2 = 0.35\text{ m}$ (uniform rods with center of mass at $\ell_i/2$ and $I_i = \frac{1}{12} m_i \ell_i^2$).</li>
+          <li><strong>Actuator Saturation:</strong> Clamp horizontal cart drive force strictly to $|u(t)| \le 25\text{ N}$ and track excursion to $|x(t)| \le 0.8\text{ m}$.</li>
+          <li><strong>Disturbance Recovery:</strong> Recover asymptotically to zero equilibrium from simultaneous initial angular perturbations up to $|\theta_1(0)|, |\theta_2(0)| \le 8^\circ$ within $3.0\text{ s}$.</li>
+        </ul>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">02 / MODELING &amp; ANALYSIS</span>
+        <h2>Euler-Lagrange Formulation, Linearization &amp; CARE Synthesis</h2>
+        <p>
+          Defining the generalized coordinate vector $q = [x,\ \theta_1,\ \theta_2]^T$ (angles measured clockwise from the upright vertical) and Lagrangian $\mathcal{L} = T(q, \dot{q}) - V(q)$, the Euler-Lagrange equations yield the coupled second-order manipulator form:
+        </p>
+        <div class="math-block">
+          $$M(q)\ddot{q} + C(q, \dot{q})\dot{q} + G(q) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} u(t)$$
+        </div>
+        <p>
+          Linearizing around the unstable upright equilibrium $q = 0, \dot{q} = 0$ defines the 6-dimensional state vector $\mathbf{x} = [x,\ \theta_1,\ \theta_2,\ \dot{x},\ \dot{\theta}_1,\ \dot{\theta}_2]^T$ and state-space dynamics:
+        </p>
+        <div class="math-block">
+          $$\dot{\mathbf{x}} = A\mathbf{x} + B u, \qquad A = \begin{bmatrix} 0_{3\times 3} &amp; I_{3\times 3} \\ -M_0^{-1} K_g &amp; 0_{3\times 3} \end{bmatrix}, \qquad B = \begin{bmatrix} 0_{3\times 1} \\ M_0^{-1} e_1 \end{bmatrix}$$
+        </div>
+        <p>
+          To guarantee stability with bounded actuator effort, the infinite-horizon LQR controller minimizes the quadratic cost functional $J$:
+        </p>
+        <div class="math-block">
+          $$J = \int_0^\infty \left(\mathbf{x}^T Q \mathbf{x} + u^T R u\right) dt, \qquad u^*(t) = -K\mathbf{x}(t) = -R^{-1} B^T P\,\mathbf{x}(t)$$
+        </div>
+        <p>where $P = P^T &gt; 0$ is the unique stabilizing solution to the Continuous Algebraic Riccati Equation (CARE):</p>
+        <div class="math-block">
+          $$A^T P + P A - P B R^{-1} B^T P + Q = 0$$
+        </div>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">03 / DESIGN &amp; PROTOTYPING ITERATIONS</span>
+        <h2>LQR Weighting Trade-Offs Under Actuator Clipping</h2>
+        <p>Three state-weighting and integration strategies were benchmarked against the full nonlinear plant simulated via 4th-order Runge-Kutta (RK4) at $\Delta t = 2\text{ ms}$:</p>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Weighting Strategy</th>
+                <th>$Q = \text{diag}(q_x, q_{\theta_1}, q_{\theta_2}, q_{\dot{x}}, q_{\dot{\theta}_1}, q_{\dot{\theta}_2})$</th>
+                <th>Peak Force ($8^\circ$ Perturb.)</th>
+                <th>Settling &amp; Stability Behavior</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Uniform Identity</td>
+                <td>$\text{diag}(1, 1, 1, 1, 1, 1)$</td>
+                <td>$38.4\text{ N}$ (Saturated)</td>
+                <td>Cart travels $&gt;1.4\text{ m}$; upper link diverges when force saturates at $25\text{ N}$</td>
+              </tr>
+              <tr>
+                <td>Bryson-Scaled LQR</td>
+                <td>$\text{diag}(4, 120, 180, 1, 15, 25)$, $R = 0.08$</td>
+                <td>$22.6\text{ N}$ (Within limit)</td>
+                <td>Zero saturation; stabilizes both links in $2.4\text{ s}$ with $\pm 0.34\text{ m}$ cart stroke</td>
+              </tr>
+              <tr>
+                <td>Aggressive Tip-Lock</td>
+                <td>$\text{diag}(1, 300, 600, 1, 40, 80)$, $R = 0.02$</td>
+                <td>$49.1\text{ N}$ (Severe clipping)</td>
+                <td>High-frequency chatter on linear plant; loses basin of attraction under $\pm 25\text{ N}$ clip</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Bryson's rule weighting ($Q_{ii} = 1 / x_{i,\max}^2$) proved essential: prioritizing $\theta_2$ angular regulation over tight cart position $x$ allowed the cart to briefly move opposite the initial lean (non-minimum-phase "catch" maneuver) without saturating the $25\text{ N}$ motor limit.
+        </p>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">04 / VALIDATION &amp; RESULTS</span>
+        <h2>Eigenvalue Placement &amp; Nonlinear RK4 Simulation</h2>
+        <ul>
+          <li><strong>Controllability &amp; Eigenvalues:</strong> The open-loop $A$ matrix exhibits two unstable poles ($\lambda_1 \approx +7.82\text{ rad/s}$, $\lambda_2 \approx +3.45\text{ rad/s}$). Full-rank controllability ($\text{rank}([B, AB, \dots, A^5B]) = 6$) enabled the Bryson-tuned LQR gain $K$ to place all six closed-loop eigenvalues strictly in the open left-half plane ($\text{Re}(\lambda_i) \le -1.85\text{ rad/s}$).</li>
+          <li><strong>Nonlinear RK4 Verification:</strong> Integrated against the unapproximated nonlinear $M(q)\ddot{q} + C\dot{q} + G = Bu$ dynamics with $\pm 25\text{ N}$ clipping, the controller reliably stabilizes simultaneous disturbances of $\theta_1(0) = +7.5^\circ, \theta_2(0) = -6.0^\circ$ inside a $0.68\text{ m}$ total rail envelope.</li>
+          <li><strong>Next Milestone:</strong> Add a reduced-order Luenberger / Kalman state observer in Python to test robustness against optical encoder quantization and $\pm 15\text{ mm}$ rail friction uncertainties before hardware bench assembly.</li>
+        </ul>
+      </section>
+
+      <nav class="case-pagination" aria-label="Case study pagination">
+        <a href="/projects/zvs-plasma-driver.html" class="case-pagination__link">
+          <span class="case-pagination__dir mono">&larr; PREVIOUS PROJECT</span>
+          <span class="case-pagination__title">02 / ZVS High-Voltage Flyback Plasma Driver</span>
+        </a>
+        <a href="/index.html#casebook" class="case-pagination__link case-pagination__link--next">
+          <span class="case-pagination__dir mono">CASEBOOK INDEX &rarr;</span>
+          <span class="case-pagination__title">All Selected Work</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <footer id="contact" class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="footer-contact">
+        <span class="eyebrow">DIRECT CONTACT</span>
+        <div class="footer-email-row">
+          <a href="mailto:abuubaydah07@gmail.com" class="footer-email">abuubaydah07@gmail.com</a>
+          <button type="button" class="copy-email-btn mono" data-email="abuubaydah07@gmail.com">[Copy]</button>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/Master-stuff" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/abdallah-bouaicha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-location mono">Rabat-Témara, Morocco</span>
+        <a href="#top">Back to top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-caption">
+    <div class="lightbox__inner">
+      <div class="lightbox__bar">
+        <span id="lightbox-caption" class="lightbox__caption mono"></span>
+        <button type="button" id="lightbox-close" class="lightbox__close mono">Close [ESC]</button>
+      </div>
+      <img id="lightbox-img" class="lightbox__img" src="" alt="">
+    </div>
+  </dialog>
+
+  <script src="/scripts/main.js"></script>
+</body>
+</html>

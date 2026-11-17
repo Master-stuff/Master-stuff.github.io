@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Abdallah Bouaicha</title>
+  <meta name="description" content="Background, education at ENSAM Rabat, design philosophy, and engineering capabilities of Abdallah Bouaicha.">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/about.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="/index.html" class="site-brand">
+        <span class="site-brand__name">Abdallah Bouaicha</span>
+        <span class="site-brand__tag mono">/ PORTFOLIO</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/index.html#casebook">Casebook</a>
+        <a href="/about.html" aria-current="page">About</a>
+        <a href="/assets/cv.pdf">CV (PDF)</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="demo-notice" role="note">
+    <div class="container demo-notice__inner">
+      <span class="demo-notice__tag mono">DEMO PHASE</span>
+      <p class="demo-notice__text">This website is still in a demo phase. All projects and case studies shown here are placeholder entries for website testing purposes and are not real.</p>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="about-header">
+      <span class="eyebrow">ENGINEERING PROFILE / BACKGROUND</span>
+      <h1 class="about-header__title">Building physical intuition through CAD, hardware, and math.</h1>
+    </section>
+
+    <section class="about-grid" aria-label="Biography and profile specifications">
+      <div class="about-narrative">
+        <p>
+          I am Abdallah Bouaicha, a Mechanical Engineering student at ENSAM Rabat (Class of 2029) based in Rabat-Témara, Morocco. My work sits at the intersection of classical mechanical design, mechatronics, and analytical control systems.
+        </p>
+        <p>
+          Rather than treating software simulation and physical fabrication as separate worlds, I treat every project as a single closed loop: deriving the governing physics first, translating constraints into manufacturable CAD assemblies or power topologies, and testing real prototypes until empirical measurements match the model.
+        </p>
+        <h2>Design Philosophy</h2>
+        <p>
+          Good engineering leaves very little hidden. Whether sizing a Newtonian telescope's secondary mirror against diffraction contrast limits, tuning a zero-voltage switching resonant tank, or balancing a 6-DOF inverted double pendulum within actuator saturation bounds, every millimeter, microfarad, and gain coefficient should trace back to a clear physical trade-off.
+        </p>
+      </div>
+
+      <aside class="meta-sidebar" aria-label="Academic and personal details">
+        <div class="meta-list">
+          <div class="meta-list__row">
+            <span class="meta-list__label mono">EDUCATION</span>
+            <span class="meta-list__value">ENSAM Rabat — Mechanical Engineering Cycle (Class of 2029)</span>
+          </div>
+          <div class="meta-list__row">
+            <span class="meta-list__label mono">LOCATION</span>
+            <span class="meta-list__value">Rabat-Témara, Morocco</span>
+          </div>
+          <div class="meta-list__row">
+            <span class="meta-list__label mono">LANGUAGES</span>
+            <span class="meta-list__value">Arabic (Native), French (Fluent), English (Fluent), German (Intermediate)</span>
+          </div>
+          <div class="meta-list__row">
+            <span class="meta-list__label mono">FOCUS AREAS</span>
+            <span class="meta-list__value">Optical CAD, Power Electronics, Dynamic Modeling &amp; Control</span>
+          </div>
+        </div>
+        <a href="/assets/cv.pdf" class="btn-rect">Download CV (PDF)</a>
+      </aside>
+    </section>
+
+    <section class="capabilities-section" aria-label="Capabilities and tooling index">
+      <div class="capabilities-section__header">
+        <h2>Capabilities &amp; Tooling</h2>
+        <span class="mono" style="color: var(--ink-muted);">INDEX / 04 DOMAINS</span>
+      </div>
+
+      <div class="capabilities-matrix">
+        <div class="capability-cell">
+          <span class="capability-cell__index mono">01 / DOMAIN</span>
+          <h3>Mechanical Design &amp; Prototyping</h3>
+          <p>
+            Parametric 3D part &amp; assembly modeling, tolerance stack-up analysis, Design for Manufacturing (DFM), and structural kinematic mounts for FDM 3D printing and shop fabrication.
+          </p>
+          <div class="capability-cell__tools">SolidWorks · FreeCAD · GD&amp;T · FDM (PETG / PLA-CF)</div>
+        </div>
+
+        <div class="capability-cell">
+          <span class="capability-cell__index mono">02 / DOMAIN</span>
+          <h3>Dynamics, Control &amp; Simulation</h3>
+          <p>
+            Nonlinear Euler-Lagrange system derivation, Jacobian linearization, state-space controllability analysis, LQR/CARE synthesis, and numerical RK4 integration.
+          </p>
+          <div class="capability-cell__tools">Python · NumPy / SciPy · SymPy · State-Space LQR</div>
+        </div>
+
+        <div class="capability-cell">
+          <span class="capability-cell__index mono">03 / DOMAIN</span>
+          <h3>Mechatronics &amp; Power Electronics</h3>
+          <p>
+            Resonant ZVS power topologies, flyback high-voltage generation, resistive telemetry scaling, microcontroller fault protection, and oscilloscope waveform validation.
+          </p>
+          <div class="capability-cell__tools">KiCad · LTSpice · ESP32-C3 (C/IDF) · Bench Oscilloscope</div>
+        </div>
+
+        <div class="capability-cell">
+          <span class="capability-cell__index mono">04 / DOMAIN</span>
+          <h3>Software &amp; Linux Workflow</h3>
+          <p>
+            Reproducible engineering documentation, scientific scripting, hardware test automation, and lightweight static web publishing without bloated toolchains.
+          </p>
+          <div class="capability-cell__tools">Linux · Git / GitHub Actions · LaTeX / KaTeX · HTML/CSS/JS</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="footer-contact">
+        <span class="eyebrow">DIRECT CONTACT</span>
+        <div class="footer-email-row">
+          <a href="mailto:abuubaydah07@gmail.com" class="footer-email">abuubaydah07@gmail.com</a>
+          <button type="button" class="copy-email-btn mono" data-email="abuubaydah07@gmail.com">[Copy]</button>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/Master-stuff" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/abdallah-bouaicha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-location mono">Rabat-Témara, Morocco</span>
+        <a href="#top">Back to top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/scripts/main.js"></script>
+</body>
+</html>

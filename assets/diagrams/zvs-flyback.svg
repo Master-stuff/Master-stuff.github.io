@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-labelledby="zvs-title zvs-desc">
+  <title id="zvs-title">ZVS High-Voltage Flyback Driver Topology</title>
+  <desc id="zvs-desc">Circuit and block diagram showing 12V DC supply, choke inductor, Mazzilli ZVS oscillator with IRFP250N MOSFETs, BSC25-F1118N flyback transformer, and ESP32-C3 resistive divider feedback.</desc>
+  <rect width="800" height="420" fill="#FFFFFF"/>
+  <defs>
+    <marker id="zvs-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4F6D5E"/>
+    </marker>
+    <marker id="arc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#9E5438"/>
+    </marker>
+  </defs>
+
+  <!-- Border frame -->
+  <rect x="28" y="28" width="744" height="364" fill="none" stroke="#D8D6CE" stroke-width="0.8"/>
+  <text x="44" y="52" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4F6D5E" letter-spacing="1.2">FIG 02 // MAZZILLI ZVS OSCILLATOR + BSC25-F1118N FLYBACK + ESP32-C3 TELEMETRY</text>
+
+  <!-- Stage 1: 12V DC Input & Choke -->
+  <rect x="48" y="135" width="110" height="120" fill="#E4ECE8" stroke="#232624" stroke-width="1.4"/>
+  <text x="64" y="164" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#232624" font-weight="500">12V DC BUS</text>
+  <text x="64" y="182" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">I_max = 15 A</text>
+  <text x="64" y="198" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">L_choke 100uH</text>
+  <text x="64" y="214" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">C_bulk 2200uF</text>
+
+  <!-- Power feed line + Choke coil symbol -->
+  <line x1="158" y1="162" x2="195" y2="162" stroke="#232624" stroke-width="1.6"/>
+  <path d="M 195 162 q 7 -12 14 0 q 7 -12 14 0 q 7 -12 14 0 q 7 -12 14 0" fill="none" stroke="#232624" stroke-width="1.6"/>
+  <text x="200" y="144" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">L_c (100uH)</text>
+  <line x1="251" y1="162" x2="365" y2="162" stroke="#232624" stroke-width="1.6"/>
+  <!-- Center-tap vertical feed -->
+  <line x1="365" y1="162" x2="365" y2="188" stroke="#232624" stroke-width="1.6"/>
+  <circle cx="365" cy="188" r="3" fill="#232624"/>
+
+  <!-- Ground rail -->
+  <line x1="158" y1="240" x2="480" y2="240" stroke="#232624" stroke-width="1.6"/>
+  <text x="165" y="255" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">GND (0V)</text>
+
+  <!-- Stage 2: ZVS Resonant Tank & MOSFET Half-Bridge -->
+  <rect x="275" y="95" width="180" height="170" fill="none" stroke="#4F6D5E" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="282" y="110" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#4F6D5E">ZVS RESONANT STAGE</text>
+
+  <!-- Resonant Capacitor Cr -->
+  <line x1="315" y1="130" x2="357" y2="130" stroke="#232624" stroke-width="1.4"/>
+  <line x1="357" y1="120" x2="357" y2="140" stroke="#232624" stroke-width="2"/>
+  <line x1="373" y1="120" x2="373" y2="140" stroke="#232624" stroke-width="2"/>
+  <line x1="373" y1="130" x2="415" y2="130" stroke="#232624" stroke-width="1.4"/>
+  <text x="342" y="116" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#232624">C_r = 0.68uF</text>
+
+  <!-- Tank branches to primary coils -->
+  <line x1="315" y1="130" x2="315" y2="188" stroke="#232624" stroke-width="1.4"/>
+  <line x1="415" y1="130" x2="415" y2="188" stroke="#232624" stroke-width="1.4"/>
+  <circle cx="315" cy="188" r="3" fill="#232624"/>
+  <circle cx="415" cy="188" r="3" fill="#232624"/>
+
+  <!-- MOSFET Q1 (left) and Q2 (right) boxes -->
+  <rect x="288" y="198" width="54" height="32" fill="#E4ECE8" stroke="#232624" stroke-width="1.3"/>
+  <text x="296" y="213" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#232624">Q1</text>
+  <text x="292" y="224" font-family="'IBM Plex Mono', monospace" font-size="8" fill="#525653">IRFP250N</text>
+  <line x1="315" y1="188" x2="315" y2="198" stroke="#232624" stroke-width="1.4"/>
+  <line x1="315" y1="230" x2="315" y2="240" stroke="#232624" stroke-width="1.4"/>
+
+  <rect x="388" y="198" width="54" height="32" fill="#E4ECE8" stroke="#232624" stroke-width="1.3"/>
+  <text x="396" y="213" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#232624">Q2</text>
+  <text x="392" y="224" font-family="'IBM Plex Mono', monospace" font-size="8" fill="#525653">IRFP250N</text>
+  <line x1="415" y1="188" x2="415" y2="198" stroke="#232624" stroke-width="1.4"/>
+  <line x1="415" y1="230" x2="415" y2="240" stroke="#232624" stroke-width="1.4"/>
+
+  <!-- Cross-coupled fast diodes (symbolized) -->
+  <line x1="342" y1="208" x2="388" y2="188" stroke="#4F6D5E" stroke-width="1.1" stroke-dasharray="3 2"/>
+  <line x1="388" y1="208" x2="342" y2="188" stroke="#4F6D5E" stroke-width="1.1" stroke-dasharray="3 2"/>
+  <text x="350" y="254" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#4F6D5E">UF4007 + 12V ZENER</text>
+
+  <!-- Stage 3: BSC25-F1118N Flyback Transformer -->
+  <line x1="415" y1="188" x2="495" y2="188" stroke="#232624" stroke-width="1.4"/>
+  <line x1="315" y1="175" x2="495" y2="175" stroke="#232624" stroke-width="1.4"/>
+
+  <!-- Ferrite Core Frame -->
+  <rect x="495" y="112" width="120" height="145" fill="#E4ECE8" stroke="#232624" stroke-width="1.5"/>
+  <rect x="520" y="137" width="70" height="95" fill="#FFFFFF" stroke="#232624" stroke-width="1.2"/>
+  <text x="502" y="102" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#232624">BSC25-F1118N</text>
+
+  <!-- Primary turns (left leg) & Secondary turns (right leg) -->
+  <path d="M 490 155 h 35 M 490 168 h 35 M 490 181 h 35 M 490 194 h 35 M 490 207 h 35" stroke="#232624" stroke-width="2.2"/>
+  <text x="458" y="138" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#525653">5+5T CT</text>
+  <path d="M 585 145 h 35 M 585 157 h 35 M 585 169 h 35 M 585 181 h 35 M 585 193 h 35 M 585 205 h 35 M 585 217 h 35" stroke="#9E5438" stroke-width="2"/>
+  <text x="588" y="128" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#9E5438">HV SEC</text>
+
+  <!-- HV Output & Plasma Arc Gap -->
+  <line x1="615" y1="150" x2="682" y2="150" stroke="#9E5438" stroke-width="1.8"/>
+  <line x1="615" y1="215" x2="682" y2="215" stroke="#232624" stroke-width="1.4"/>
+  <!-- Spark / Plasma Gap -->
+  <polyline points="682,150 692,168 676,182 694,196 682,215" fill="none" stroke="#9E5438" stroke-width="2"/>
+  <text x="698" y="176" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#9E5438">HV PLASMA ARC</text>
+  <text x="698" y="192" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">18 - 25 kV</text>
+  <text x="698" y="206" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">f_0 ~ 48 kHz</text>
+
+  <!-- Stage 4: ESP32-C3 Monitoring & Voltage-Divider Control -->
+  <rect x="48" y="294" width="380" height="74" fill="#FFFFFF" stroke="#232624" stroke-width="1.4"/>
+  <text x="62" y="316" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#232624" font-weight="500">ESP32-C3 CONTROL &amp; TELEMETRY</text>
+  <text x="62" y="334" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">ADC1_CH2 &lt;- V_bus / 6.0 (R1=47k, R2=9.4k)</text>
+  <text x="62" y="350" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#525653">NTC Thermal Cutoff + Low-Side Enable Gate</text>
+
+  <!-- Control / Feedback Arrows -->
+  <polyline points="103,255 103,294" fill="none" stroke="#4F6D5E" stroke-width="1.3" marker-end="url(#zvs-arrow)"/>
+  <text x="110" y="280" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#4F6D5E">V_BUS SENSE</text>
+
+  <polyline points="428,331 464,331 464,230 442,230" fill="none" stroke="#4F6D5E" stroke-width="1.3" marker-end="url(#zvs-arrow)"/>
+  <text x="472" y="318" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#4F6D5E">SOFT-START /</text>
+  <text x="472" y="332" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#4F6D5E">FAULT CUTOFF</text>
+</svg>

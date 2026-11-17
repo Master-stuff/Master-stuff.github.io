@@ -1,0 +1,289 @@
+/* Breadcrumb & Case Study Header */
+.breadcrumb {
+  padding: 28px 0 16px;
+}
+
+.breadcrumb a {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.breadcrumb a:hover {
+  color: var(--ink-primary);
+}
+
+.case-header {
+  padding: 16px 0 36px;
+}
+
+.case-header__title {
+  margin-top: 12px;
+  max-width: 24ch;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.case-header__lead {
+  margin-top: 18px;
+  max-width: 68ch;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+}
+
+/* 4-Column Specification Bar */
+.case-specs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1.5px solid var(--rule-heavy);
+  border-bottom: 1px solid var(--rule-light);
+  margin-bottom: 48px;
+}
+
+.case-specs__cell {
+  padding: 16px 16px 16px 0;
+  border-right: 1px solid var(--rule-light);
+}
+
+.case-specs__cell:not(:first-child) {
+  padding-left: 16px;
+}
+
+.case-specs__cell:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.case-specs__label {
+  display: block;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.case-specs__value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-primary);
+}
+
+.case-specs__value a {
+  color: var(--accent-sage);
+  border-bottom: 1px solid var(--accent-sage-tint);
+}
+
+.case-specs__value a:hover {
+  border-bottom-color: var(--accent-sage);
+}
+
+/* Wide Media Breakout (1120px container width) */
+.media-breakout {
+  margin: 40px 0 56px;
+}
+
+/* Editorial Report Body (720px Measure) */
+.report-body {
+  max-width: 720px;
+}
+
+.report-section {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.report-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 16px;
+}
+
+.report-section__kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent-sage);
+}
+
+.report-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+.report-section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 24px 0 10px;
+}
+
+.report-section p + p {
+  margin-top: 14px;
+}
+
+.report-section p,
+.report-section li {
+  color: var(--ink-secondary);
+}
+
+.report-section ul,
+.report-section ol {
+  margin: 14px 0 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.report-section strong {
+  color: var(--ink-primary);
+  font-weight: 600;
+}
+
+.report-section code {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.875em;
+  background: var(--bg-plate);
+  border: 1px solid var(--rule-light);
+  border-radius: 2px;
+  padding: 1px 5px;
+  color: var(--ink-primary);
+}
+
+/* KaTeX Math Plate */
+.math-block {
+  margin: 20px 0;
+  padding: 18px 20px;
+  background: var(--bg-plate);
+  border: 1px solid var(--rule-light);
+  border-radius: 2px;
+  overflow-x: auto;
+  color: var(--ink-primary);
+}
+
+.math-caption {
+  margin-top: 8px;
+  color: var(--ink-muted);
+  display: block;
+}
+
+/* Technical Trade-Off & Parameter Tables */
+.table-wrap {
+  margin: 24px 0;
+  overflow-x: auto;
+  border: 1px solid var(--rule-light);
+  border-radius: 2px;
+  background: var(--bg-plate);
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.spec-table th {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  background: var(--bg-canvas);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.spec-table td {
+  padding: 12px 14px;
+  color: var(--ink-secondary);
+  border-bottom: 1px solid var(--rule-light);
+  vertical-align: top;
+}
+
+.spec-table tr:last-child td {
+  border-bottom: none;
+}
+
+.spec-table td:first-child {
+  font-weight: 500;
+  color: var(--ink-primary);
+}
+
+/* Sequential Casebook Navigation */
+.case-pagination {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.case-pagination__link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.case-pagination__link--next {
+  text-align: right;
+  margin-left: auto;
+}
+
+.case-pagination__dir {
+  color: var(--ink-muted);
+}
+
+.case-pagination__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.case-pagination__link:hover .case-pagination__title {
+  color: var(--accent-sage);
+}
+
+@media (max-width: 860px) {
+  .case-specs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-specs__cell:nth-child(2n) {
+    border-right: none;
+  }
+
+  .case-specs__cell {
+    border-bottom: 1px solid var(--rule-light);
+  }
+}
+
+@media (max-width: 560px) {
+  .case-specs {
+    grid-template-columns: 1fr;
+  }
+
+  .case-specs__cell {
+    padding: 14px 0;
+    border-right: none;
+  }
+
+  .case-specs__cell:not(:first-child) {
+    padding-left: 0;
+  }
+
+  .case-pagination {
+    flex-direction: column;
+  }
+
+  .case-pagination__link--next {
+    text-align: left;
+    margin-left: 0;
+  }
+}

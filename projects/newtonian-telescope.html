@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>114/900 Newtonian Optical Telescope Assembly — Abdallah Bouaicha</title>
+  <meta name="description" content="Optical layout, structural deflection analysis, and mechanical CAD case study for a 114/900 Newtonian reflector.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });"></script>
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/article.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="/index.html" class="site-brand">
+        <span class="site-brand__name">Abdallah Bouaicha</span>
+        <span class="site-brand__tag mono">/ PORTFOLIO</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/index.html#casebook">Casebook</a>
+        <a href="/about.html">About</a>
+        <a href="/assets/cv.pdf">CV (PDF)</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="demo-notice" role="note">
+    <div class="container demo-notice__inner">
+      <span class="demo-notice__tag mono">DEMO PHASE</span>
+      <p class="demo-notice__text">This website is still in a demo phase. All projects and case studies shown here are placeholder entries for website testing purposes and are not real.</p>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/index.html#casebook">&larr; Back to casebook</a>
+    </div>
+
+    <header class="case-header">
+      <span class="eyebrow">PROJECT / 01</span>
+      <h1 class="case-header__title">114/900 Newtonian Optical Telescope Assembly</h1>
+      <p class="case-header__lead">
+        First-principles optical layout, structural deflection analysis, and printable mechanical sub-assemblies for a 114 mm $f/7.89$ reflecting telescope.
+      </p>
+    </header>
+
+    <section class="case-specs" aria-label="Project specifications">
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">ROLE</span>
+        <span class="case-specs__value">Optical Layout &amp; Mechanical CAD</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">TIMELINE</span>
+        <span class="case-specs__value">Oct 2025 – Jan 2026</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">TOOLS &amp; STACK</span>
+        <span class="case-specs__value">SolidWorks, Python Raytracer, PETG / Carbon-PLA, M4 Hardware</span>
+      </div>
+      <div class="case-specs__cell">
+        <span class="case-specs__label mono">REPOSITORY / CAD</span>
+        <span class="case-specs__value"><a href="https://github.com/Master-stuff" target="_blank" rel="noopener noreferrer">github.com/Master-stuff/newtonian-114-900</a></span>
+      </div>
+    </section>
+
+    <figure class="media-frame media-frame--diagram media-breakout">
+      <figcaption class="figure-label mono">FIG 01 / OPTICAL TUBE ASSEMBLY — 114/900 Longitudinal Ray Diagram</figcaption>
+      <img src="/assets/diagrams/telescope-optics.svg" alt="Primary parabolic reflection (D = 114 mm, f = 900 mm) folded 90 degrees by a 28 mm minor-axis diagonal mirror to the focal plane." data-caption="FIG 01 / OPTICAL TUBE ASSEMBLY — Primary parabolic reflection (D = 114 mm, f = 900 mm) folded 90° to the focal plane (b = 132 mm).">
+    </figure>
+
+    <article class="report-body">
+      <section class="report-section">
+        <span class="report-section__kicker mono">01 / PROBLEM &amp; CONSTRAINTS</span>
+        <h2>Eliminating Backlash &amp; Obstruction Loss in Entry-Scale Reflectors</h2>
+        <p>
+          Small-aperture amateur Newtonian reflectors frequently suffer from undersized secondary mirrors, plastic focuser backlash, and pinched primary mirror cells that degrade Strehl ratio well below the diffraction limit. The goal of this project was to architect a rigid, field-collimatable 114 mm Newtonian optical tube assembly (OTA) using off-the-shelf optics paired with custom CAD structural mounts.
+        </p>
+        <p>Key engineering constraints established before modeling:</p>
+        <ul>
+          <li><strong>Aperture &amp; Focal Ratio:</strong> Fixed to a $D = 114\text{ mm}$ parabolic primary mirror with focal length $f = 900\text{ mm}$ ($F/7.89$), giving balanced planetary and deep-sky imaging scale without severe coma.</li>
+          <li><strong>Central Obstruction Limit:</strong> Keep linear central obstruction $\epsilon = d_{\text{sec}} / D \le 25\%$ so first-order diffraction contrast remains crisp on high-magnification planetary targets.</li>
+          <li><strong>Focuser Back-Focus:</strong> Reserve $b = 132\text{ mm}$ from the optical axis to the focal plane so both standard $1.25''$ Plössl eyepieces and a bare DSLR sensor can reach focus without barlow lenses.</li>
+          <li><strong>Manufacturability:</strong> All custom brackets (mirror cell, 4-vane spider hub, tube rings, and focuser housing) must print support-free on a standard $220 \times 220\text{ mm}$ FDM bed with $\pm 0.2\text{ mm}$ assembly clearance.</li>
+        </ul>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">02 / MODELING &amp; ANALYSIS</span>
+        <h2>Parabolic Sagitta, Diffraction Limits &amp; Secondary Sizing</h2>
+        <p>
+          The parabolic primary mirror surface sagitta $z(r)$ as a function of radial coordinate $r$ eliminates spherical aberration on-axis and follows:
+        </p>
+        <div class="math-block">
+          $$z(r) = \frac{r^2}{4f}, \qquad F/\# = \frac{f}{D} = \frac{900}{114} \approx 7.89$$
+        </div>
+        <p>
+          At wavelength $\lambda = 550\text{ nm}$, the theoretical Rayleigh angular resolution $\theta_R$ and Airy disk diameter $d_{\text{Airy}}$ at the focal plane establish the target mechanical collimation tolerance:
+        </p>
+        <div class="math-block">
+          $$\theta_R = 1.22 \frac{\lambda}{D} \approx 1.21\text{ arcsec}, \qquad d_{\text{Airy}} = 2.44 \lambda (F/\#) \approx 10.6\ \mu\text{m}$$
+        </div>
+        <p>
+          To illuminate an unvignetted field diameter $D_f = 14\text{ mm}$ located $b = 132\text{ mm}$ off the primary optical axis (where tube inner radius $R_{\text{tube}} = 70\text{ mm}$ plus $62\text{ mm}$ focuser height), the minimum secondary mirror minor axis $d_{\text{min}}$ is governed by similar triangles along the converging light cone:
+        </p>
+        <div class="math-block">
+          $$d_{\text{min}} = \frac{(D - D_f)\, b}{f} + D_f = \frac{(114 - 14)\times 132}{900} + 14 = 28.67\text{ mm}$$
+        </div>
+        <p>
+          Selecting a standard $28\text{ mm}$ minor-axis elliptical flat yields a near-zero $13.2\text{ mm}$ full-illumination circle and a $24.56\%$ linear obstruction ($6.0\%$ area obstruction), maintaining diffraction efficiency while staying strictly inside the $25\%$ obstruction budget.
+        </p>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">03 / DESIGN &amp; PROTOTYPING ITERATIONS</span>
+        <h2>Subsystem Trade-Off Matrix &amp; Kinematic Mirror Mounting</h2>
+        <p>Three subsystem trade-offs drove the mechanical CAD iteration cycle in SolidWorks:</p>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Subsystem</th>
+                <th>Candidate Options</th>
+                <th>Trade-Off &amp; Decision</th>
+                <th>Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Primary Mirror Cell</td>
+                <td>Silicone-glued fixed plate vs. 3-point spring-loaded cell</td>
+                <td>Fixed glue induces thermal stress and prevents collimation; 3-point cell uses three M5 thumbscrews + compression springs</td>
+                <td>Repeatably holds collimation within 0.3 mm laser return</td>
+              </tr>
+              <tr>
+                <td>Secondary Spider</td>
+                <td>Single curved stalk vs. 4-vane thin steel blades</td>
+                <td>Curved stalk eliminates spikes but vibrates under wind; 0.8 mm spring-steel 4-vane cross gives high torsional stiffness</td>
+                <td>First torsional mode above 85 Hz; minimal diffraction width</td>
+              </tr>
+              <tr>
+                <td>Tube Material</td>
+                <td>1.5 mm rolled aluminum vs. segmented PETG-CF tube</td>
+                <td>Full-length rolled aluminum/steel tube avoids multi-joint sag across the 840 mm span</td>
+                <td>End-to-end tip deflection under 1.8 kg load &lt; 0.12 mm</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The primary mirror cell uses three $120^\circ$-spaced nylon edge clips positioned with a $0.15\text{ mm}$ radial air gap above the glass chamfer. Eliminating tight radial clamping prevents trefoil astigmatism during overnight ambient temperature drops from $22^\circ\text{C}$ to $8^\circ\text{C}$.
+        </p>
+      </section>
+
+      <section class="report-section">
+        <span class="report-section__kicker mono">04 / VALIDATION &amp; RESULTS</span>
+        <h2>Collimation Stability &amp; Star-Test Observations</h2>
+        <ul>
+          <li><strong>Collimation Stability:</strong> Using a single-beam laser collimator across $0^\circ$ to $75^\circ$ altitude slews, return-beam drift remained inside a $1.5\text{ mm}$ diameter zone around the primary center spot—well within the $2.4\text{ mm}$ coma-free sweet spot for an $f/7.89$ paraboloid.</li>
+          <li><strong>Star Test Verification:</strong> Out-of-focus diffraction rings at $180\times$ magnification showed concentric Fresnel patterns with negligible astigmatism after 40 minutes of thermal equilibration.</li>
+          <li><strong>Next Iteration:</strong> Replace the helical printed focuser collar with a dual-speed Crayford roller bearing stage to support heavier cooled astrophotography cameras.</li>
+        </ul>
+      </section>
+
+      <nav class="case-pagination" aria-label="Case study pagination">
+        <a href="/index.html#casebook" class="case-pagination__link">
+          <span class="case-pagination__dir mono">&larr; INDEX</span>
+          <span class="case-pagination__title">Return to Casebook</span>
+        </a>
+        <a href="/projects/zvs-plasma-driver.html" class="case-pagination__link case-pagination__link--next">
+          <span class="case-pagination__dir mono">NEXT PROJECT &rarr;</span>
+          <span class="case-pagination__title">02 / ZVS High-Voltage Flyback Plasma Driver</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <footer id="contact" class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="footer-contact">
+        <span class="eyebrow">DIRECT CONTACT</span>
+        <div class="footer-email-row">
+          <a href="mailto:abuubaydah07@gmail.com" class="footer-email">abuubaydah07@gmail.com</a>
+          <button type="button" class="copy-email-btn mono" data-email="abuubaydah07@gmail.com">[Copy]</button>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/Master-stuff" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/abdallah-bouaicha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="footer-location mono">Rabat-Témara, Morocco</span>
+        <a href="#top">Back to top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-caption">
+    <div class="lightbox__inner">
+      <div class="lightbox__bar">
+        <span id="lightbox-caption" class="lightbox__caption mono"></span>
+        <button type="button" id="lightbox-close" class="lightbox__close mono">Close [ESC]</button>
+      </div>
+      <img id="lightbox-img" class="lightbox__img" src="" alt="">
+    </div>
+  </dialog>
+
+  <script src="/scripts/main.js"></script>
+</body>
+</html>
