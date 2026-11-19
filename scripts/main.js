@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. One-Click Email Copy
   document.querySelectorAll('.copy-email-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
-      const email = btn.dataset.email || 'abuubaydah07@gmail.com';
+      const email = btn.dataset.email || 'bouaicha.maker@gmail.com';
       try {
         await navigator.clipboard.writeText(email);
         btn.textContent = 'Copied';
